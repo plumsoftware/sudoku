@@ -79,4 +79,7 @@ dependencies {
 
     //UI controller
     implementation(libs.ui.controller)
+
+    //Fonts
+    implementation(libs.fonts)
 }
