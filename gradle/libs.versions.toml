@@ -26,6 +26,8 @@ uiController = "0.36.0"
 #Fonts
 fonts = "1.7.5"
 jetbrainsKotlinJvm = "1.9.0"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 
@@ -59,9 +61,12 @@ ui-controller = { group = "com.google.accompanist", name = "accompanist-systemui
 
 #Fonts
 fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = 'fonts'}
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
