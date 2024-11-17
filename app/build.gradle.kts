@@ -82,4 +82,7 @@ dependencies {
 
     //Fonts
     implementation(libs.fonts)
+
+    //Project
+    implementation(project(path = ":domain"))
 }

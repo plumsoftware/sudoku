@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Судоку"
 include(":app")
- 
+include(":domain")

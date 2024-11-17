@@ -25,6 +25,7 @@ uiController = "0.36.0"
 
 #Fonts
 fonts = "1.7.5"
+jetbrainsKotlinJvm = "1.9.0"
 
 [libraries]
 
@@ -62,4 +63,5 @@ fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
