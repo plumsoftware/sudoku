@@ -10,44 +10,45 @@ class SettingsRepositoryImpl constructor(context: Context) : SettingsRepository 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(Settings.SETTINGS, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()
+    private val baseSettings: Settings = Settings()
 
     override suspend fun saveIsDarkTheme(isDarkTheme: Boolean) {
-        TODO("Not yet implemented")
+        editor.putBoolean(Settings.IS_DARK_THEME, isDarkTheme)
     }
 
     override suspend fun saveBestTime(bestTime: Long) {
-        TODO("Not yet implemented")
+        editor.putLong(Settings.BEST_TIME, bestTime)
     }
 
     override suspend fun saveDifferanceBestTime(differanceBestTime: Long) {
-        TODO("Not yet implemented")
+        editor.putLong(Settings.DIFFERANCE_BEST_TIME, differanceBestTime)
     }
 
     override suspend fun saveAverageError(averageError: Double) {
-        TODO("Not yet implemented")
+        editor.putFloat(Settings.AVERAGE_ERROR, averageError.toFloat())
     }
 
     override suspend fun saveOftenSudokuDifficulty(oftenSudokuDifficulty: SudokuDifficulty) {
-        TODO("Not yet implemented")
+        editor.putString(Settings.OFTEN_SUDOKU_DIFFICULTY, oftenSudokuDifficulty.toString())
     }
 
     override suspend fun getIsDarkTheme(): Boolean {
-        TODO("Not yet implemented")
+        return sharedPreferences.getBoolean(Settings.IS_DARK_THEME, baseSettings.isDarkTheme)
     }
 
     override suspend fun getBestTime(): Long {
-        TODO("Not yet implemented")
+        return sharedPreferences.getLong(Settings.BEST_TIME, baseSettings.bestTime)
     }
 
     override suspend fun getDifferanceBestTime(): Long {
-        TODO("Not yet implemented")
+        return sharedPreferences.getLong(Settings.DIFFERANCE_BEST_TIME, baseSettings.differanceBestTime)
     }
 
     override suspend fun getAverageError(): Double {
-        TODO("Not yet implemented")
+        return sharedPreferences.getFloat(Settings.AVERAGE_ERROR, baseSettings.averageError.toFloat()).toDouble()
     }
 
     override suspend fun getOftenSudokuDifficulty(): SudokuDifficulty {
-        TODO("Not yet implemented")
+        return SudokuDifficulty.fromString(from = sharedPreferences.getString(Settings.OFTEN_SUDOKU_DIFFICULTY, SudokuDifficulty.None.toString())!!)
     }
 }
