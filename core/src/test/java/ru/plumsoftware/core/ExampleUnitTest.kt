@@ -3,15 +3,19 @@ package ru.plumsoftware.core
 import org.junit.Test
 
 import org.junit.Assert.*
+import ru.plumsoftware.core.repository.sudoku.SudokuRepositoryImpl
+import ru.plumsoftware.domain.model.SudokuAreaSize
+import ru.plumsoftware.domain.model.SudokuDifficulty
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun matrix() {
+        val sudokuRepository = SudokuRepositoryImpl()
+        val e = sudokuRepository.generateSudokuField(
+            sudokuAreaSize = SudokuAreaSize.Small(),
+            sudokuDifficulty = SudokuDifficulty.Easy()
+        )
+
+        assertEquals(e.rows.size, 6)
     }
 }

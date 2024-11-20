@@ -41,6 +41,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Matrix
+    implementation(libs.more.math)
+
     //Project
     implementation(project(path = ":domain"))
 }
