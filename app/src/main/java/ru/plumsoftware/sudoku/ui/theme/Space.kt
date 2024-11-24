@@ -14,4 +14,8 @@ object Space {
         val heading = 60.dp
         val buttons = 24.dp
     }
+
+    object ExitAppDialog {
+        val heading = 40.dp
+    }
 }

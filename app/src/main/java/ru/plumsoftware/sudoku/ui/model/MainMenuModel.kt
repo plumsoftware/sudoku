@@ -33,6 +33,6 @@ sealed class MainMenuModel(
         icon = Icons.AutoMirrored.Outlined.ExitToApp,
         colorFamily = MainMenuButtonColorFamily.Exit,
         title = R.string.main_menu_button_exit,
-        route = Routing.EXIT
+        route = Routing.Dialog.EXIT
     )
 }

@@ -4,4 +4,8 @@
     <string name="main_menu_button_start_game">ИГРАТЬ</string>
     <string name="main_menu_button_settings">НАСТРОЙКИ</string>
     <string name="main_menu_button_exit">ВЫЙТИ</string>
+
+    <string name="exit_app_dialog">Вы действительно хотите выйти из игры?</string>
+    <string name="exit">Выйти</string>
+    <string name="cansel">Отмена</string>
 </resources>
