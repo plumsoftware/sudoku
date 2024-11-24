@@ -2,4 +2,6 @@
     <string name="app_name">Судоку</string>
 
     <string name="main_menu_button_start_game">ИГРАТЬ</string>
+    <string name="main_menu_button_settings">НАСТРОЙКИ</string>
+    <string name="main_menu_button_exit">ВЫЙТИ</string>
 </resources>

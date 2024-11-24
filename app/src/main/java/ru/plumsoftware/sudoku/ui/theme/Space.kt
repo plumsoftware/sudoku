@@ -1,0 +1,17 @@
+package ru.plumsoftware.sudoku.ui.theme
+
+import androidx.compose.ui.unit.dp
+
+object Space {
+
+    val extraSmall = 4.dp
+    val small = 8.dp
+    val medium = 12.dp
+    val large = 16.dp
+    val extraLarge = 20.dp
+
+    object MainScreen {
+        val heading = 60.dp
+        val buttons = 24.dp
+    }
+}
