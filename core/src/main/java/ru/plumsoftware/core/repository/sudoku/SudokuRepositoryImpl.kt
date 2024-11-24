@@ -15,8 +15,8 @@ class SudokuRepositoryImpl : SudokuRepository {
     ): Matrix<SudokuItem> {
         val size = when (sudokuAreaSize) {
             is SudokuAreaSize.Hard -> sudokuAreaSize.number //6x6
-            is SudokuAreaSize.Medium -> sudokuAreaSize.number //9x9
-            is SudokuAreaSize.Small -> sudokuAreaSize.number//12x12
+            is SudokuAreaSize.Medium -> sudokuAreaSize.number //8x8
+            is SudokuAreaSize.Small -> sudokuAreaSize.number //10x10
         }
 
         val chanceOfVisibleItem = when (sudokuDifficulty) {
