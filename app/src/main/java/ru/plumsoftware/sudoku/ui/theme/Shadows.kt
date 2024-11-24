@@ -12,9 +12,9 @@ object Shadows {
         @Composable
         get() {
             return ButtonDefaults.elevatedButtonElevation(
-                defaultElevation = 6.dp,
-                pressedElevation = 2.dp,
-                focusedElevation = 2.dp
+                defaultElevation = 10.dp,
+                pressedElevation = 10.dp,
+                focusedElevation = 10.dp
             )
         }
 }
