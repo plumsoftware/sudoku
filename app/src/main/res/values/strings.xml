@@ -8,4 +8,11 @@
     <string name="exit_app_dialog">Вы действительно хотите выйти из игры?</string>
     <string name="exit">Выйти</string>
     <string name="cansel">Отмена</string>
+
+    <string name="game_settings">Настройки игры</string>
+    <string name="game_difficulty">Сложность игры</string>
+    <string name="game_life">Жизни</string>
+    <string name="game_life_sub">Уменьшение жизи при ошибке в игре</string>
+
+    <string name="back">Назад</string>
 </resources>
