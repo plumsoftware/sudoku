@@ -1,12 +1,18 @@
 package ru.plumsoftware.sudoku.ui.components
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -30,10 +36,18 @@ import ru.plumsoftware.sudoku.ui.theme.Padding
 import ru.plumsoftware.sudoku.ui.theme.Shadows
 import ru.plumsoftware.sudoku.ui.theme.Space
 
+@SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
 fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
 
     var selected by remember { mutableIntStateOf(0) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isTap by interactionSource.collectIsPressedAsState()
+    val offsetY by animateDpAsState(
+        targetValue = if (isTap) Shadows.elevationMediumHeight else Shadows.ZERO,
+        animationSpec = tween(durationMillis = 100),
+        label = ""
+    )
 
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -59,6 +73,7 @@ fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
                     modifier = Modifier
                         .wrapContentHeight()
                         .weight(1.0f)
+                        .offset(y = if (selected == index) Shadows.ZERO else offsetY)
                         .coloredShadow(
                             color = MaterialTheme.colorScheme.onBackground,
                             borderRadius = 12.dp,
