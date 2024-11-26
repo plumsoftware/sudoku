@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
 object Shadows {
-
+    val ZERO = 0.dp
     val elevationMediumHeight = 6.dp
     val mainMenuButtonElevation: ButtonElevation
         @Composable

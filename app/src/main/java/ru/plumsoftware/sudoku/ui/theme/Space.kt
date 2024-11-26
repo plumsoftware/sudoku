@@ -18,4 +18,8 @@ object Space {
     object ExitAppDialog {
         val heading = 40.dp
     }
+
+    object GameSettings {
+        val itemScape = 36.dp
+    }
 }

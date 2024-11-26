@@ -11,6 +11,7 @@
 
     <string name="game_settings">Настройки игры</string>
     <string name="game_difficulty">Сложность игры</string>
+    <string name="game_area">Размер поля</string>
     <string name="game_life">Жизни</string>
     <string name="game_life_sub">Уменьшение жизи при ошибке в игре</string>
 

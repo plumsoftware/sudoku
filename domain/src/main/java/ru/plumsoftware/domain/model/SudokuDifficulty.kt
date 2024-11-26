@@ -5,10 +5,10 @@ import ru.plumsoftware.domain.model.SudokuDifficulty.None.arrayNames
 sealed class SudokuDifficulty {
     protected val arrayNames = arrayOf(
         "None",
-        "Easy",
-        "Medium",
-        "Hard",
-        "Extra hard"
+        "Легко",
+        "Среднее",
+        "Сложно",
+        "Очень сложно"
     )
 
     data object None : SudokuDifficulty() {

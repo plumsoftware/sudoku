@@ -6,7 +6,10 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_NIGHT_YES,
+    uiMode = Configuration.UI_MODE_NIGHT_NO and Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 annotation class DefaultPreview
 
