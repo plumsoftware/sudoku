@@ -1,4 +1,4 @@
-package ru.plumsoftware.sudoku.ui.theme
+package ru.plumsoftware.sudoku.ui.theme.extensions
 
 import androidx.compose.ui.unit.dp
 

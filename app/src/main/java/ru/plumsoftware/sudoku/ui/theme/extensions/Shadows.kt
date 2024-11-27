@@ -1,4 +1,4 @@
-package ru.plumsoftware.sudoku.ui.theme
+package ru.plumsoftware.sudoku.ui.theme.extensions
 
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 object Shadows {
     val ZERO = 0.dp
-    val elevationMediumHeight = 6.dp
+    val elevationMediumHeight = 4.dp
     val mainMenuButtonElevation: ButtonElevation
         @Composable
         get() {
@@ -17,4 +17,6 @@ object Shadows {
                 focusedElevation = 10.dp
             )
         }
+
+    val textShadow = 6.0f
 }

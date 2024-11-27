@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import ru.plumsoftware.sudoku.R
-import ru.plumsoftware.sudoku.ui.theme.disabled
+import ru.plumsoftware.sudoku.ui.theme.extensions.disabled
 
 @Composable
 fun Life(onClick: (Boolean) -> Unit) {

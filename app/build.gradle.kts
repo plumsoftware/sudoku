@@ -81,7 +81,7 @@ dependencies {
     implementation(libs.ui.controller)
 
     //Fonts
-    implementation(libs.fonts)
+//    implementation(libs.fonts)
 
     //Project
     implementation(project(path = ":domain"))

@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import ru.plumsoftware.sudoku.ui.extensions.coloredShadow
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
 import ru.plumsoftware.sudoku.ui.model.MainMenuModel
-import ru.plumsoftware.sudoku.ui.theme.Padding
-import ru.plumsoftware.sudoku.ui.theme.Shadows
+import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
+import ru.plumsoftware.sudoku.ui.theme.extensions.Shadows
 import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
@@ -108,7 +108,7 @@ fun MainMenuButton(
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.headlineSmall.copy(
                     color = mainMenuModel.colorFamily.onContainerColor,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Normal
                 )
             )
         }

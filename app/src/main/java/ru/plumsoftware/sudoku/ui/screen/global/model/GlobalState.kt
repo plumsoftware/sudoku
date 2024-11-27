@@ -5,6 +5,6 @@ import ru.plumsoftware.domain.model.SudokuDifficulty
 
 data class GlobalState(
     val sudokuDifficulty: SudokuDifficulty = SudokuDifficulty.Easy(),
-    val sudokuAreaSize: SudokuAreaSize = SudokuAreaSize.Small,
+    val sudokuAreaSize: SudokuAreaSize = SudokuAreaSize.Hard,
     val isLife: Boolean = false
 )

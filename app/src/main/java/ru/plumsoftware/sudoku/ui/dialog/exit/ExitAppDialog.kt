@@ -1,6 +1,7 @@
 package ru.plumsoftware.sudoku.ui.dialog.exit
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,8 +29,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.plumsoftware.sudoku.R
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
-import ru.plumsoftware.sudoku.ui.theme.Padding
-import ru.plumsoftware.sudoku.ui.theme.Space
+import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
+import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
 @Composable
 fun ExitAppDialog(navHostController: NavHostController) {
@@ -37,6 +38,7 @@ fun ExitAppDialog(navHostController: NavHostController) {
         modifier = Modifier
             .padding(horizontal = Padding.large, vertical = Padding.medium)
             .clip(shape = MaterialTheme.shapes.small)
+            .background(color = MaterialTheme.colorScheme.background)
             .wrapContentSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start

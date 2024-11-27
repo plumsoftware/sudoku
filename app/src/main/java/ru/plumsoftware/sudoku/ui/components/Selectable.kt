@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import ru.plumsoftware.domain.model.SudokuAreaSize
 import ru.plumsoftware.domain.model.SudokuDifficulty
 import ru.plumsoftware.sudoku.ui.extensions.coloredShadow
-import ru.plumsoftware.sudoku.ui.theme.Padding
-import ru.plumsoftware.sudoku.ui.theme.Shadows
-import ru.plumsoftware.sudoku.ui.theme.Space
+import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
+import ru.plumsoftware.sudoku.ui.theme.extensions.Shadows
+import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable

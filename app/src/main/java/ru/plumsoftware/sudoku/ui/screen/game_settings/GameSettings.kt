@@ -39,8 +39,8 @@ import ru.plumsoftware.sudoku.ui.model.Routing
 import ru.plumsoftware.sudoku.ui.screen.game_settings.model.Effect
 import ru.plumsoftware.sudoku.ui.screen.game_settings.model.Event
 import ru.plumsoftware.sudoku.ui.screen.global.model.GlobalEvent
-import ru.plumsoftware.sudoku.ui.theme.Padding
-import ru.plumsoftware.sudoku.ui.theme.Space
+import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
+import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,14 +113,6 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
                     verticalArrangement = Arrangement.spacedBy(space = Space.GameSettings.itemScape),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Selectable(
-                        list = state.value.sudokuAreaSize,
-                        title = R.string.game_area,
-                        onClick = { item ->
-                            viewModel.onEvent(Event.OnSelectItem(item = item))
-                        }
-                    )
-
                     Selectable(
                         list = state.value.sudokuDifficulty,
                         title = R.string.game_difficulty,
