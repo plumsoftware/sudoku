@@ -108,7 +108,7 @@ fun MainMenuButton(
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.headlineSmall.copy(
                     color = mainMenuModel.colorFamily.onContainerColor,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Bold
                 )
             )
         }

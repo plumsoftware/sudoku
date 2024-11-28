@@ -27,6 +27,14 @@ sealed class MainMenuButtonColorFamily (
         shadowColor = blueShadow
     )
 
+    data object Yellow : MainMenuButtonColorFamily(
+        containerColor = yellowContainer,
+        onContainerColor = Color.White,
+        leadingIconColor = Color.White,
+        leadingContainerColor = yellowLeadingContainer,
+        shadowColor = yellowShadow
+    )
+
     data object Exit : MainMenuButtonColorFamily(
         containerColor = exitContainer,
         onContainerColor = Color.White,

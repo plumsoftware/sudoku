@@ -36,10 +36,10 @@ import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 fun ExitAppDialog(navHostController: NavHostController) {
     Column(
         modifier = Modifier
-            .padding(horizontal = Padding.large, vertical = Padding.medium)
             .clip(shape = MaterialTheme.shapes.small)
             .background(color = MaterialTheme.colorScheme.background)
-            .wrapContentSize(),
+            .wrapContentSize()
+            .padding(horizontal = Padding.large, vertical = Padding.medium),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {

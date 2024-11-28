@@ -85,3 +85,7 @@ internal val blueShadow = Color(0xFF343D8A)
 internal val exitContainer = Color(0xFFA3A1A1)
 internal val exitLeadingContainer = Color(0xFF8B8888)
 internal val exitShadow = Color(0xFF555559)
+
+internal val yellowContainer = Color(0xFFD2C22F)
+internal val yellowLeadingContainer = Color(0xFFFFC107)
+internal val yellowShadow = Color(0xFF9E942A)

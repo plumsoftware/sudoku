@@ -15,11 +15,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import ru.plumsoftware.sudoku.R
-import ru.plumsoftware.sudoku.ui.theme.extensions.disabled
+import ru.plumsoftware.sudoku.ui.extensions.textShadow
 
 @Composable
 fun Life(onClick: (Boolean) -> Unit) {
@@ -43,7 +44,11 @@ fun Life(onClick: (Boolean) -> Unit) {
                     .weight(1.0f),
                 textAlign = TextAlign.Start,
                 text = stringResource(id = R.string.game_life),
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+                    .textShadow()
             )
 
             Checkbox(
@@ -55,13 +60,13 @@ fun Life(onClick: (Boolean) -> Unit) {
             )
         }
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(0.5f),
-            softWrap = true,
-            textAlign = TextAlign.Start,
-            text = stringResource(id = R.string.game_life_sub),
-            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground.disabled())
-        )
+//        Text(
+//            modifier = Modifier
+//                .fillMaxWidth(0.5f),
+//            softWrap = true,
+//            textAlign = TextAlign.Start,
+//            text = stringResource(id = R.string.game_life_sub),
+//            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground)
+//        )
     }
 }
