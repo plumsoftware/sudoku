@@ -15,6 +15,6 @@ data class State(
         SudokuDifficulty.Hard()
     ),
     val selectedDifficulty: SudokuDifficulty = sudokuDifficulty[0],
-    val selectedSize: SudokuAreaSize = sudokuAreaSize[0],
+    val selectedSize: SudokuAreaSize = sudokuAreaSize[2],
     val isLife: Boolean = false
 )

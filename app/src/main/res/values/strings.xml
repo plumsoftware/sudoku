@@ -16,5 +16,7 @@
     <string name="game_life">Жизни</string>
     <string name="game_life_sub">Уменьшение жизни ❤️ при ошибке в игре</string>
 
+    <string name="game_in_difficulty">Игра на сложности</string>
+
     <string name="back">Назад</string>
 </resources>

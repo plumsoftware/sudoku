@@ -85,4 +85,5 @@ dependencies {
 
     //Project
     implementation(project(path = ":domain"))
+    implementation(project(path = ":core"))
 }

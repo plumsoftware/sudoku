@@ -89,3 +89,7 @@ internal val exitShadow = Color(0xFF555559)
 internal val yellowContainer = Color(0xFFD2C22F)
 internal val yellowLeadingContainer = Color(0xFFFFC107)
 internal val yellowShadow = Color(0xFF9E942A)
+
+internal val gridColor = Color(0xFFE3E3E3)
+internal val defaultUserGrid = Color(0xFF4DD0E1)
+internal val defaultFullGrid = Color(0xFFC0C0C0)

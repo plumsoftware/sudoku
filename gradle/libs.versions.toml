@@ -18,7 +18,7 @@ yandexAdsVersion = "7.6.0"
 navigationCompose = "2.8.4"
 
 #Matrix
-moreMath = "1.0.0"
+moreMath = "1.1.0"
 
 #UI controller
 uiController = "0.36.0"

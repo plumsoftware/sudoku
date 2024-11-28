@@ -26,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import ru.plumsoftware.sudoku.ui.dialog.exit.ExitAppDialog
 import ru.plumsoftware.sudoku.ui.model.Routing
 import ru.plumsoftware.sudoku.ui.model.ScreenAnim
+import ru.plumsoftware.sudoku.ui.screen.game.Game
 import ru.plumsoftware.sudoku.ui.screen.game_settings.GameSettings
 import ru.plumsoftware.sudoku.ui.screen.global.GlobalViewModel
 import ru.plumsoftware.sudoku.ui.screen.main.MainScreen
@@ -104,7 +105,7 @@ class MainActivity : ComponentActivity() {
 
                         }
                         composable(route = Routing.PLAY_GAME) {
-
+                            Game(navHostController = navController, globalState = globalState)
                         }
                         dialog(route = Routing.Dialog.EXIT) {
                             ExitAppDialog(navHostController = navController)
