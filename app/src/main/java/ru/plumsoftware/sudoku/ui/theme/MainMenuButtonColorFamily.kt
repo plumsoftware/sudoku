@@ -13,7 +13,7 @@ sealed class MainMenuButtonColorFamily (
 ) {
     data object StartGame : MainMenuButtonColorFamily(
         containerColor = redContainer,
-        onContainerColor = Color.White,
+        onContainerColor = onRedContainer,
         leadingIconColor = Color.White,
         leadingContainerColor = redLeadingContainer,
         shadowColor = redShadow
@@ -21,7 +21,7 @@ sealed class MainMenuButtonColorFamily (
 
     data object Setting : MainMenuButtonColorFamily(
         containerColor = blueContainer,
-        onContainerColor = Color.White,
+        onContainerColor = onBlueContainer,
         leadingIconColor = Color.White,
         leadingContainerColor = blueLeadingContainer,
         shadowColor = blueShadow
@@ -29,7 +29,7 @@ sealed class MainMenuButtonColorFamily (
 
     data object Yellow : MainMenuButtonColorFamily(
         containerColor = yellowContainer,
-        onContainerColor = Color.White,
+        onContainerColor = onYellowContainer,
         leadingIconColor = Color.White,
         leadingContainerColor = yellowLeadingContainer,
         shadowColor = yellowShadow
@@ -37,7 +37,7 @@ sealed class MainMenuButtonColorFamily (
 
     data object Exit : MainMenuButtonColorFamily(
         containerColor = exitContainer,
-        onContainerColor = Color.White,
+        onContainerColor = onExitContainer,
         leadingIconColor = Color.White,
         leadingContainerColor = exitLeadingContainer,
         shadowColor = exitShadow

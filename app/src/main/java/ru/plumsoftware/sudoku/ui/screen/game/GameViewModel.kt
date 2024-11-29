@@ -33,7 +33,8 @@ class GameViewModel(
             is Event.ChangeSelectedMatrixItem -> {
                 state.update {
                     it.copy(
-                        selectedItem = event.item
+                        selectedRow = event.row,
+                        selectedColumn = event.column
                     )
                 }
             }

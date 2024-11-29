@@ -11,22 +11,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ru.plumsoftware.sudoku.ui.components.BorderedText
 import ru.plumsoftware.sudoku.ui.components.MainMenuButton
+import ru.plumsoftware.sudoku.ui.components.OutlinedText
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
 import ru.plumsoftware.sudoku.ui.model.LandScapePreview
 import ru.plumsoftware.sudoku.ui.model.PortraitPreview
 import ru.plumsoftware.sudoku.ui.screen.main.model.Effect
 import ru.plumsoftware.sudoku.ui.screen.main.model.Event
+import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(navHostController: NavHostController) {
@@ -42,9 +43,7 @@ fun MainScreen(navHostController: NavHostController) {
         }
     }
 
-    Scaffold(
-        containerColor = Color.Transparent
-    ) {
+    Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,7 +51,9 @@ fun MainScreen(navHostController: NavHostController) {
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BorderedText()
+            OutlinedText(
+                strokeWidth = 30.0f
+            )
 
             FlowRow(
                 verticalArrangement = Arrangement.spacedBy(
@@ -79,5 +80,7 @@ fun MainScreen(navHostController: NavHostController) {
 @LandScapePreview
 @PortraitPreview
 private fun MainScreenPreview() {
-    MainScreen(navHostController = rememberNavController())
+    SudokuTheme {
+        MainScreen(navHostController = rememberNavController())
+    }
 }

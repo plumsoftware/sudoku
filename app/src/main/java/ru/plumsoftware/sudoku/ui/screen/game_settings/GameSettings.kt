@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +30,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.plumsoftware.sudoku.R
-import ru.plumsoftware.sudoku.ui.components.Life
 import ru.plumsoftware.sudoku.ui.components.MainMenuButton
 import ru.plumsoftware.sudoku.ui.components.Selectable
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
@@ -42,7 +40,7 @@ import ru.plumsoftware.sudoku.ui.model.Routing
 import ru.plumsoftware.sudoku.ui.screen.game_settings.model.Effect
 import ru.plumsoftware.sudoku.ui.screen.game_settings.model.Event
 import ru.plumsoftware.sudoku.ui.screen.global.model.GlobalEvent
-import ru.plumsoftware.sudoku.ui.theme.extensions.Blur
+import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 import ru.plumsoftware.sudoku.ui.theme.extensions.disabled
@@ -79,7 +77,6 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
         containerColor = Color.Transparent,
         topBar = {
             CenterAlignedTopAppBar(
-                modifier = Modifier.blur(Blur.default),
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background.disabled()
                 ),
@@ -131,9 +128,9 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
                         }
                     )
 
-                    Life(onClick = {
-                        viewModel.onEvent(Event.OnLifeClick(it))
-                    })
+//                    Life(onClick = {
+//                        viewModel.onEvent(Event.OnLifeClick(it))
+//                    })
                 }
             }
 
@@ -159,5 +156,5 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
 @PortraitPreview
 @LandScapePreview
 private fun GameSettingsPreview() {
-    GameSettings(rememberNavController(), {})
+    SudokuTheme { GameSettings(rememberNavController(), {}) }
 }

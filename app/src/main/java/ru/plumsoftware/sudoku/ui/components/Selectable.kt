@@ -23,21 +23,22 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.plumsoftware.domain.model.SudokuAreaSize
 import ru.plumsoftware.domain.model.SudokuDifficulty
 import ru.plumsoftware.sudoku.ui.extensions.coloredShadow
-import ru.plumsoftware.sudoku.ui.extensions.textShadow
 import ru.plumsoftware.sudoku.ui.theme.MainMenuButtonColorFamily
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 import ru.plumsoftware.sudoku.ui.theme.extensions.Shadows
 import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
+@OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
 fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
@@ -62,15 +63,16 @@ fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
         ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
+        OutlinedText(
+            text = stringResource(id = title),
+            style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
-            text = stringResource(id = title),
-            style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-                .textShadow()
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp,
+            strokeWidth = 14.0f,
+            strokeColor = MaterialTheme.colorScheme.onBackground,
+            shadowColor = MaterialTheme.colorScheme.onBackground
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(

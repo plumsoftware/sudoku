@@ -4,5 +4,5 @@ import androidx.compose.ui.unit.dp
 
 object Blur {
     val default = 6.dp
-    val textShadowBlur = 6.0f
+    val textShadowBlur = 20.0f
 }

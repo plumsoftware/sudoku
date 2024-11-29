@@ -18,5 +18,5 @@ object Shadows {
             )
         }
 
-    val textShadow = 6.0f
+    val textShadow = 8.0f
 }
