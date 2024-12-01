@@ -53,6 +53,7 @@ import ru.plumsoftware.sudoku.ui.model.PortraitPreview
 import ru.plumsoftware.sudoku.ui.screen.game.model.Event
 import ru.plumsoftware.sudoku.ui.screen.global.model.GlobalState
 import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
+import ru.plumsoftware.sudoku.ui.theme.defaultUserGrid
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 
@@ -129,11 +130,13 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
             ) {
                 Grid(
                     sudokuMatrix = state.value.sudokuMatrix,
-                    onClick = { row, col ->
+                    selectedGridCell = state.value.selectedGrid,
+                    onClick = { row, col, gridCell ->
                         viewModel.onEvent(
                             Event.ChangeSelectedMatrixItem(
                                 row = row,
-                                column = col
+                                column = col,
+                                gridCell = gridCell
                             )
                         )
                     }
@@ -154,7 +157,7 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                         Button(
                             modifier = Modifier.size(40.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.background,
+                                containerColor = if (i == state.value.selectedNumber) defaultUserGrid else  MaterialTheme.colorScheme.background,
                                 contentColor = MaterialTheme.colorScheme.onBackground
                             ),
                             border = BorderStroke(
@@ -164,7 +167,7 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                             shape = MaterialTheme.shapes.small,
                             contentPadding = PaddingValues(all = Padding.small),
                             onClick = {
-
+                                viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
                             }
                         ) {
                             Text(

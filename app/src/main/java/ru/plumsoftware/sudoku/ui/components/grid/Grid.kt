@@ -10,10 +10,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import more.math.matrix.model.Matrix
@@ -27,10 +23,10 @@ import ru.plumsoftware.sudoku.ui.theme.gridColor
 @Composable
 fun Grid(
     sudokuMatrix: Matrix<SudokuItem>,
-    onClick: (Int, Int) -> Unit
+    selectedGridCell: Int,
+    onClick: (Int, Int, Int) -> Unit
 ) {
     val itemsList: List<SudokuItem> = sudokuMatrix.rows.flatMap { it }
-    var selected by rememberSaveable { mutableIntStateOf(-1) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(9),
@@ -46,16 +42,14 @@ fun Grid(
         itemsIndexed(itemsList) { index, item ->
             GridCell(
                 sudokuItem = item,
-                container = if (item.isVisible) defaultFullGrid else if (index == selected) defaultUserGrid else gridColor,
-//                text = if (item.isVisible) item.number.toString() else "",
-                text = item.number.toString(),
+                container = if (!item.isUserNumber) defaultFullGrid else if (index == selectedGridCell) defaultUserGrid else gridColor,
+                text = if (item.isVisible) item.userNumber.toString() else "",
                 onClick = {
 
                     val row = index / 9
                     val col = index % 9
 
-                    onClick(row, col)
-                    selected = index
+                    onClick(row, col, index)
                 }
             )
         }

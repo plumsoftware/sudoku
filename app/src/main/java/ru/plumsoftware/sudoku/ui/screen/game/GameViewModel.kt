@@ -34,8 +34,53 @@ class GameViewModel(
                 state.update {
                     it.copy(
                         selectedRow = event.row,
-                        selectedColumn = event.column
+                        selectedColumn = event.column,
+                        selectedGrid = event.gridCell
                     )
+                }
+
+                if (state.value.selectedNumber != -1) {
+                    state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
+                        state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
+                            userNumber = state.value.selectedNumber,
+                            isVisible = true
+                        )
+
+                    state.update {
+                        it.copy(
+                            sudokuMatrix = state.value.sudokuMatrix,
+                            selectedNumber = -1,
+                            selectedRow = -1,
+                            selectedColumn = -1,
+                            selectedGrid = -1
+                        )
+                    }
+                }
+            }
+
+            is Event.ChangeSelectedNumber -> {
+                state.update {
+                    it.copy(
+                        selectedNumber = event.number
+                    )
+                }
+
+                if (state.value.selectedRow != -1 && state.value.selectedColumn != -1) {
+                    state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
+                        state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
+                            userNumber = state.value.selectedNumber,
+                            isVisible = true
+                        )
+
+                    state.update {
+                        it.copy(
+                            sudokuMatrix = state.value.sudokuMatrix,
+                            selectedNumber = -1,
+                            selectedRow = -1,
+                            selectedColumn = -1,
+                            selectedGrid = -1
+                        )
+                    }
                 }
             }
         }

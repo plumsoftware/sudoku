@@ -7,5 +7,7 @@ data class State(
     val sudokuMatrix: Matrix<SudokuItem> = Matrix(mutableListOf()),
     val selectedRow: Int = -1,
     val selectedColumn: Int = -1,
-    val selectedItem: SudokuItem = SudokuItem.empty()
+    val selectedItem: SudokuItem = SudokuItem.empty(),
+    val selectedNumber: Int = -1,
+    val selectedGrid: Int = -1
 )

@@ -11,9 +11,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +28,6 @@ fun GridCell(sudokuItem: SudokuItem, text: String, container: Color, onClick: (S
         disabledContainerColor = container,
         disabledContentColor = Color.Black
     )
-    val number by rememberSaveable { mutableStateOf(text) }
 
     Box(
         modifier = Modifier
@@ -42,7 +38,7 @@ fun GridCell(sudokuItem: SudokuItem, text: String, container: Color, onClick: (S
             modifier = Modifier.align(Alignment.Center).fillMaxSize(),
             shape = MaterialTheme.shapes.small,
             colors = colors,
-            enabled = !sudokuItem.isVisible,
+            enabled = sudokuItem.isUserNumber,
             contentPadding = PaddingValues(all = Padding.small),
             onClick = {
                 onClick(sudokuItem)
@@ -53,7 +49,7 @@ fun GridCell(sudokuItem: SudokuItem, text: String, container: Color, onClick: (S
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Center,
-                text = number,
+                text = text,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = if (sudokuItem.isVisible) FontWeight.Normal else FontWeight.Black
                 )

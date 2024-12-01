@@ -11,6 +11,11 @@ sealed class Event {
 
     data class ChangeSelectedMatrixItem(
         val row: Int,
-        val column: Int
+        val column: Int,
+        val gridCell: Int
+    ) : Event()
+
+    data class ChangeSelectedNumber(
+        val number: Int
     ) : Event()
 }

@@ -33,7 +33,8 @@ class SudokuRepositoryImpl : SudokuRepository {
                     SudokuItem(
                         isVisible = rand < chanceOfVisibleItem,
                         number = -1,
-                        isCorrect = null
+                        isCorrect = null,
+                        isUserNumber = rand > chanceOfVisibleItem
                     )
                 )
             }
@@ -84,13 +85,13 @@ class SudokuRepositoryImpl : SudokuRepository {
                 val numbers = (1..size).shuffled()
                 for (num in numbers) {
                     if (isSafeToPlace(matrix, row, col, num, size)) {
-                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = num, isCorrect = true)
+                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = num, isCorrect = true, isUserNumber = matrix[row, col].isUserNumber)
 
                         if (generateSudoku(matrix, size)) {
                             return true
                         }
 
-                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = -1, isCorrect = null)
+                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = -1, isCorrect = null, isUserNumber = matrix[row, col].isUserNumber)
                     }
                 }
                 return false
