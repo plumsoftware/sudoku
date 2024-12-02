@@ -39,11 +39,26 @@ class GameViewModel(
                     )
                 }
 
-                if (state.value.selectedNumber != -1) {
+                if (state.value.selectedNumber != -1 && state.value.selectedNumber != 10) {
                     state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
                         state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
                             userNumber = state.value.selectedNumber,
                             isVisible = true
+                        )
+                    state.update {
+                        it.copy(
+                            sudokuMatrix = state.value.sudokuMatrix,
+                            selectedNumber = -1,
+                            selectedRow = -1,
+                            selectedColumn = -1,
+                            selectedGrid = -1
+                        )
+                    }
+                } else if (state.value.selectedNumber == 10){
+                    state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
+                        state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
+                            userNumber = -1,
+                            isVisible = false
                         )
 
                     state.update {

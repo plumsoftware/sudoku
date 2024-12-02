@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +36,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -114,11 +116,12 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
         }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxWidth()
-                .fillMaxHeight(0.3f)
-                .background(MaterialTheme.colorScheme.primaryContainer)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.3f)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
             )
             Column(
                 modifier = Modifier
@@ -144,6 +147,7 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                 Spacer(modifier = Modifier.height(height = Space.large))
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
+                    maxItemsInEachRow = 5,
                     verticalArrangement = Arrangement.spacedBy(
                         space = Space.medium,
                         alignment = Alignment.CenterVertically
@@ -153,28 +157,53 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                         alignment = Alignment.CenterHorizontally
                     )
                 ) {
-                    for (i in 1..9) {
-                        Button(
-                            modifier = Modifier.size(40.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (i == state.value.selectedNumber) defaultUserGrid else  MaterialTheme.colorScheme.background,
-                                contentColor = MaterialTheme.colorScheme.onBackground
-                            ),
-                            border = BorderStroke(
-                                width = 1.dp,
-                                color = MaterialTheme.colorScheme.onBackground
-                            ),
-                            shape = MaterialTheme.shapes.small,
-                            contentPadding = PaddingValues(all = Padding.small),
-                            onClick = {
-                                viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
+
+                    for (i in 1..10) {
+                        if (i <= 9)
+                            Button(
+                                modifier = Modifier.size(50.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
+                                    contentColor = MaterialTheme.colorScheme.onBackground
+                                ),
+                                border = BorderStroke(
+                                    width = 1.dp,
+                                    color = MaterialTheme.colorScheme.onBackground
+                                ),
+                                shape = MaterialTheme.shapes.small,
+                                contentPadding = PaddingValues(all = Padding.small),
+                                onClick = {
+                                    viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
+                                }
+                            ) {
+                                Text(
+                                    text = i.toString(),
+                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground)
+                                )
                             }
-                        ) {
-                            Text(
-                                text = i.toString(),
-                                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground)
-                            )
-                        }
+                        else
+                            Button(
+                                modifier = Modifier.size(50.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
+                                    contentColor = MaterialTheme.colorScheme.onBackground
+                                ),
+                                border = BorderStroke(
+                                    width = 1.dp,
+                                    color = MaterialTheme.colorScheme.onBackground
+                                ),
+                                shape = MaterialTheme.shapes.small,
+                                contentPadding = PaddingValues(all = Padding.small),
+                                onClick = {
+                                    viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Refresh,
+                                    contentDescription = null,
+                                    modifier = Modifier.rotate(90.0f)
+                                )
+                            }
                     }
                 }
             }
