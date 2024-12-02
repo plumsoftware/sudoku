@@ -9,5 +9,8 @@ data class State(
     val selectedColumn: Int = -1,
     val selectedItem: SudokuItem = SudokuItem.empty(),
     val selectedNumber: Int = -1,
-    val selectedGrid: Int = -1
+    val selectedGrid: Int = -1,
+    val errorsCount: Int = -1,
+    val time: Long = 0L,
+    val isGameFinished: Boolean = false
 )

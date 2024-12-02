@@ -3,19 +3,19 @@ package ru.plumsoftware.sudoku.ui.screen.game
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -58,6 +59,9 @@ import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
 import ru.plumsoftware.sudoku.ui.theme.defaultUserGrid
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 import ru.plumsoftware.sudoku.ui.theme.extensions.Space
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -76,135 +80,168 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                 sudokuAreaSize = globalState.value.sudokuAreaSize
             )
         )
+        viewModel.onEvent(Event.StartTime)
     }
 
     val state = viewModel.state.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                title = {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Start,
-                        text = "${globalState.value.sudokuDifficulty}",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navHostController.navigateUp()
-                        },
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = stringResource(id = R.string.back)
-                        )
-                    }
-                }
-            )
-        }
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.3f)
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-            )
             Column(
                 modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize()
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
                     .wrapContentHeight(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalArrangement = Arrangement.spacedBy(
+                    space = Space.medium,
+                    alignment = Alignment.Top
+                ),
+                horizontalAlignment = Alignment.Start
             ) {
-                Grid(
-                    sudokuMatrix = state.value.sudokuMatrix,
-                    selectedGridCell = state.value.selectedGrid,
-                    onClick = { row, col, gridCell ->
-                        viewModel.onEvent(
-                            Event.ChangeSelectedMatrixItem(
-                                row = row,
-                                column = col,
-                                gridCell = gridCell
-                            )
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    title = {
+                        Text(
+                            modifier = Modifier.wrapContentWidth(),
+                            textAlign = TextAlign.Start,
+                            text = "${globalState.value.sudokuDifficulty}",
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                         )
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                navHostController.navigateUp()
+                            },
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = Color.Transparent,
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                                contentDescription = stringResource(id = R.string.back)
+                            )
+                        }
                     }
                 )
-                Spacer(modifier = Modifier.height(height = Space.large))
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    maxItemsInEachRow = 5,
-                    verticalArrangement = Arrangement.spacedBy(
-                        space = Space.medium,
-                        alignment = Alignment.CenterVertically
-                    ),
+                Row(
+                    modifier = Modifier
+                        .padding(bottom = Padding.large, start = Padding.large, end = Padding.large)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(
-                        space = Space.medium,
-                        alignment = Alignment.CenterHorizontally
+                        space = Space.small,
+                        alignment = Alignment.Start
                     )
                 ) {
+                    val time = SimpleDateFormat(
+                        "KK:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date(state.value.time))
 
-                    for (i in 1..10) {
-                        if (i <= 9)
-                            Button(
-                                modifier = Modifier.size(50.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
-                                    contentColor = MaterialTheme.colorScheme.onBackground
-                                ),
-                                border = BorderStroke(
-                                    width = 1.dp,
-                                    color = MaterialTheme.colorScheme.onBackground
-                                ),
-                                shape = MaterialTheme.shapes.small,
-                                contentPadding = PaddingValues(all = Padding.small),
-                                onClick = {
-                                    viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
-                                }
-                            ) {
-                                Text(
-                                    text = i.toString(),
-                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground)
-                                )
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        painter = painterResource(R.drawable.time),
+                        contentDescription = time,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Text(
+                        text = time,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize()
+                .wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(
+                space = Space.extraLarge,
+                alignment = Alignment.CenterVertically
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Grid(
+                sudokuMatrix = state.value.sudokuMatrix,
+                selectedGridCell = state.value.selectedGrid,
+                onClick = { row, col, gridCell ->
+                    viewModel.onEvent(
+                        Event.ChangeSelectedMatrixItem(
+                            row = row,
+                            column = col,
+                            gridCell = gridCell
+                        )
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.height(height = Space.large))
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                maxItemsInEachRow = 5,
+                verticalArrangement = Arrangement.spacedBy(
+                    space = Space.medium,
+                    alignment = Alignment.CenterVertically
+                ),
+                horizontalArrangement = Arrangement.spacedBy(
+                    space = Space.medium,
+                    alignment = Alignment.CenterHorizontally
+                )
+            ) {
+
+                for (i in 1..10) {
+                    if (i <= 9)
+                        Button(
+                            modifier = Modifier.size(50.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
+                                contentColor = MaterialTheme.colorScheme.onBackground
+                            ),
+                            border = BorderStroke(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.onBackground
+                            ),
+                            shape = MaterialTheme.shapes.small,
+                            contentPadding = PaddingValues(all = Padding.small),
+                            onClick = {
+                                viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
                             }
-                        else
-                            Button(
-                                modifier = Modifier.size(50.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
-                                    contentColor = MaterialTheme.colorScheme.onBackground
-                                ),
-                                border = BorderStroke(
-                                    width = 1.dp,
-                                    color = MaterialTheme.colorScheme.onBackground
-                                ),
-                                shape = MaterialTheme.shapes.small,
-                                contentPadding = PaddingValues(all = Padding.small),
-                                onClick = {
-                                    viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Refresh,
-                                    contentDescription = null,
-                                    modifier = Modifier.rotate(90.0f)
-                                )
+                        ) {
+                            Text(
+                                text = i.toString(),
+                                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground)
+                            )
+                        }
+                    else
+                        Button(
+                            modifier = Modifier.size(50.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (i == state.value.selectedNumber) defaultUserGrid else MaterialTheme.colorScheme.background,
+                                contentColor = MaterialTheme.colorScheme.onBackground
+                            ),
+                            border = BorderStroke(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.onBackground
+                            ),
+                            shape = MaterialTheme.shapes.small,
+                            contentPadding = PaddingValues(all = Padding.small),
+                            onClick = {
+                                viewModel.onEvent(Event.ChangeSelectedNumber(number = i))
                             }
-                    }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Refresh,
+                                contentDescription = null,
+                                modifier = Modifier.rotate(90.0f)
+                            )
+                        }
                 }
             }
         }

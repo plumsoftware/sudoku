@@ -1,19 +1,30 @@
 package ru.plumsoftware.sudoku.ui.screen.game
 
+import android.icu.util.Calendar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.plumsoftware.core.repository.sudoku.SudokuRepository
 import ru.plumsoftware.sudoku.ui.screen.game.model.Event
 import ru.plumsoftware.sudoku.ui.screen.game.model.State
+import kotlin.time.Duration.Companion.seconds
 
 class GameViewModel(
     private val sudokuRepository: SudokuRepository
 ) : ViewModel() {
     val state = MutableStateFlow(State())
+
+    private val calendar: Calendar = Calendar.getInstance()
+
+    init {
+        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+    }
 
     fun onEvent(event: Event) {
         when (event) {
@@ -74,6 +85,12 @@ class GameViewModel(
                         )
                     }
                 }
+
+                state.update {
+                    it.copy(
+                        isGameFinished = isGameFinished()
+                    )
+                }
             }
 
             is Event.ChangeSelectedNumber -> {
@@ -101,7 +118,7 @@ class GameViewModel(
                             selectedGrid = -1
                         )
                     }
-                } else {
+                } else if (state.value.selectedRow != -1 && state.value.selectedColumn != -1 && state.value.selectedNumber == 10) {
                     state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
                         state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
                             userNumber = -1,
@@ -119,6 +136,18 @@ class GameViewModel(
                         )
                     }
                 }
+
+                state.update {
+                    it.copy(
+                        isGameFinished = isGameFinished()
+                    )
+                }
+            }
+
+            Event.StartTime -> {
+                viewModelScope.launch(Dispatchers.Main) {
+                    time()
+                }
             }
         }
     }
@@ -129,7 +158,42 @@ class GameViewModel(
         for (col in 0..8) {
             val item = state.value.sudokuMatrix[state.value.selectedRow, col]
 
-            if (item.userNumber == userNumber) return false
+            if (item.userNumber == userNumber) {
+                state.update { it.copy(errorsCount = (state.value.errorsCount + 1)) }
+                return false
+            }
+        }
+
+        for (row in 0..8) {
+            val item = state.value.sudokuMatrix[row, state.value.selectedColumn]
+
+            if (item.userNumber == userNumber) {
+                state.update { it.copy(errorsCount = (state.value.errorsCount + 1)) }
+                return false
+            }
+        }
+        return true
+    }
+
+    private suspend fun time() {
+        delay(1.seconds)
+
+        calendar.add(Calendar.SECOND, 1)
+        val time = calendar.timeInMillis
+        state.update {
+            it.copy(
+                time = time
+            )
+        }
+
+        time()
+    }
+
+    private inline fun isGameFinished(): Boolean {
+        state.value.sudokuMatrix.rows.forEachIndexed { _, sudokuItems ->
+            sudokuItems.forEachIndexed { _, sudokuItem ->
+                if (sudokuItem.userNumber == -1 || !sudokuItem.isCorrect) return false
+            }
         }
         return true
     }

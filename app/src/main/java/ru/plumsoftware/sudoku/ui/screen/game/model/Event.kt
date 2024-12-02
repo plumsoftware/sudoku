@@ -18,4 +18,6 @@ sealed class Event {
     data class ChangeSelectedNumber(
         val number: Int
     ) : Event()
+
+    data object StartTime : Event()
 }
