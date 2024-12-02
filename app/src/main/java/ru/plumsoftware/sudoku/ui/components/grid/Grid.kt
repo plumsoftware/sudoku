@@ -24,7 +24,7 @@ import ru.plumsoftware.sudoku.ui.theme.gridColor
 fun Grid(
     sudokuMatrix: Matrix<SudokuItem>,
     selectedGridCell: Int,
-    onClick: (Int, Int, Int) -> Unit
+    onClick: (Int, Int, Int) -> Unit,
 ) {
     val itemsList: List<SudokuItem> = sudokuMatrix.rows.flatMap { it }
 

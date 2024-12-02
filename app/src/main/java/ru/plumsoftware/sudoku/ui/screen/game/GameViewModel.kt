@@ -40,10 +40,12 @@ class GameViewModel(
                 }
 
                 if (state.value.selectedNumber != -1 && state.value.selectedNumber != 10) {
+                    val isError = checkMatrix()
                     state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
                         state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
                             userNumber = state.value.selectedNumber,
-                            isVisible = true
+                            isVisible = true,
+                            isCorrect = isError
                         )
                     state.update {
                         it.copy(
@@ -54,11 +56,12 @@ class GameViewModel(
                             selectedGrid = -1
                         )
                     }
-                } else if (state.value.selectedNumber == 10){
+                } else if (state.value.selectedNumber == 10) {
                     state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
                         state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
                             userNumber = -1,
-                            isVisible = false
+                            isVisible = false,
+                            isCorrect = true
                         )
 
                     state.update {
@@ -80,11 +83,30 @@ class GameViewModel(
                     )
                 }
 
-                if (state.value.selectedRow != -1 && state.value.selectedColumn != -1) {
+                if (state.value.selectedRow != -1 && state.value.selectedColumn != -1 && state.value.selectedNumber != 10) {
+                    val isError = checkMatrix()
                     state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
                         state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
                             userNumber = state.value.selectedNumber,
-                            isVisible = true
+                            isVisible = true,
+                            isCorrect = isError
+                        )
+
+                    state.update {
+                        it.copy(
+                            sudokuMatrix = state.value.sudokuMatrix,
+                            selectedNumber = -1,
+                            selectedRow = -1,
+                            selectedColumn = -1,
+                            selectedGrid = -1
+                        )
+                    }
+                } else {
+                    state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn] =
+                        state.value.sudokuMatrix[state.value.selectedRow, state.value.selectedColumn].copy(
+                            userNumber = -1,
+                            isVisible = false,
+                            isCorrect = true
                         )
 
                     state.update {
@@ -99,5 +121,16 @@ class GameViewModel(
                 }
             }
         }
+    }
+
+    private inline fun checkMatrix(): Boolean {
+        val userNumber = state.value.selectedNumber
+
+        for (col in 0..8) {
+            val item = state.value.sudokuMatrix[state.value.selectedRow, col]
+
+            if (item.userNumber == userNumber) return false
+        }
+        return true
     }
 }

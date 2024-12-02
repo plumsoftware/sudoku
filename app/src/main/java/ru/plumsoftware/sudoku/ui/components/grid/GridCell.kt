@@ -21,9 +21,9 @@ import ru.plumsoftware.domain.model.SudokuItem
 import ru.plumsoftware.sudoku.ui.theme.extensions.Padding
 
 @Composable
-fun GridCell(sudokuItem: SudokuItem, text: String, container: Color, onClick: (SudokuItem) -> Unit, ) {
+fun GridCell(sudokuItem: SudokuItem, text: String, container: Color, onClick: (SudokuItem) -> Unit) {
     val colors = ButtonDefaults.buttonColors(
-        containerColor = container,
+        containerColor = if (!sudokuItem.isCorrect) MaterialTheme.colorScheme.errorContainer else container,
         contentColor = Color.Black,
         disabledContainerColor = container,
         disabledContentColor = Color.Black

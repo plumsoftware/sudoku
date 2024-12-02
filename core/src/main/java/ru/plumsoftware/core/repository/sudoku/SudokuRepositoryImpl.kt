@@ -33,7 +33,7 @@ class SudokuRepositoryImpl : SudokuRepository {
                     SudokuItem(
                         isVisible = rand < chanceOfVisibleItem,
                         number = -1,
-                        isCorrect = null,
+                        isCorrect = true,
                         isUserNumber = rand > chanceOfVisibleItem
                     )
                 )
@@ -91,7 +91,7 @@ class SudokuRepositoryImpl : SudokuRepository {
                             return true
                         }
 
-                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = -1, isCorrect = null, isUserNumber = matrix[row, col].isUserNumber)
+                        matrix[row, col] = SudokuItem(isVisible = matrix[row, col].isVisible, number = -1, isCorrect = true, isUserNumber = matrix[row, col].isUserNumber)
                     }
                 }
                 return false
