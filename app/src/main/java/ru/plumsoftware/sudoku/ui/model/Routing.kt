@@ -9,5 +9,7 @@ object Routing {
 
     object Dialog {
         const val EXIT = "exit"
+        const val GAME_PAUSE = "game_pause"
+        const val GAME_WIN = "game_win"
     }
 }

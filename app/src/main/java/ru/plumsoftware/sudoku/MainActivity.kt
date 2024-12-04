@@ -15,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import ru.plumsoftware.sudoku.ui.dialog.exit.ExitAppDialog
+import ru.plumsoftware.sudoku.ui.dialog.pause.PauseDialog
+import ru.plumsoftware.sudoku.ui.dialog.win.WinDialog
 import ru.plumsoftware.sudoku.ui.model.Routing
 import ru.plumsoftware.sudoku.ui.model.ScreenAnim
 import ru.plumsoftware.sudoku.ui.screen.game.Game
@@ -80,6 +82,12 @@ class MainActivity : ComponentActivity() {
                         }
                         dialog(route = Routing.Dialog.EXIT) {
                             ExitAppDialog(navHostController = navController)
+                        }
+                        dialog(route = Routing.Dialog.GAME_PAUSE) {
+                            PauseDialog(navHostController = navController)
+                        }
+                        dialog(route = Routing.Dialog.GAME_WIN) {
+                            WinDialog(navHostController = navController)
                         }
                     }
                 }
