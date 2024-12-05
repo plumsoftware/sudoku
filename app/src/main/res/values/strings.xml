@@ -21,8 +21,8 @@
     <string name="back">Назад</string>
     <string name="in_menu">В меню</string>
 
-    <string name="win_title">Победа</string>
-    <string name="win_subtitle">Все цифры списаны верно!</string>
+    <string name="win_title">Победа!</string>
+    <string name="win_subtitle">Всё поле заполнено</string>
 
     <string name="pause">Пауза</string>
     <string name="back_in_game">Вернуться в игру</string>

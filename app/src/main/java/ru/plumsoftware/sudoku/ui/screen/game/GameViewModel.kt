@@ -97,11 +97,7 @@ class GameViewModel(
                     )
                 }
 
-                if (isGameFinished) {
-                    viewModelScope.launch {
-                        effect.emit(Effect.Win)
-                    }
-                }
+                isGameFinishedCheck()
             }
 
             is Event.ChangeSelectedNumber -> {
@@ -156,11 +152,7 @@ class GameViewModel(
                     )
                 }
 
-                if (isGameFinished) {
-                    viewModelScope.launch {
-                        effect.emit(Effect.Win)
-                    }
-                }
+                isGameFinishedCheck()
             }
 
             Event.StartTime -> {
@@ -215,5 +207,13 @@ class GameViewModel(
             }
         }
         return true
+    }
+
+    private inline fun isGameFinishedCheck() {
+        if (isGameFinished()) {
+            viewModelScope.launch {
+                effect.emit(Effect.Win)
+            }
+        }
     }
 }

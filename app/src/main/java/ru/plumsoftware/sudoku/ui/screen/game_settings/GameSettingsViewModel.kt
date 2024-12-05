@@ -36,7 +36,6 @@ class GameSettingsViewModel : ViewModel() {
                             }
                         }
                     }
-
                     is SudokuDifficulty -> {
                         viewModelScope.launch(Dispatchers.Main) {
                             state.update {

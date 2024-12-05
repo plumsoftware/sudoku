@@ -70,7 +70,7 @@ fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
             textAlign = TextAlign.Start,
             fontWeight = FontWeight.Bold,
             fontSize = 32.sp,
-            strokeWidth = 14.0f,
+            strokeWidth = 8.0f,
             strokeColor = MaterialTheme.colorScheme.onBackground,
             shadowColor = MaterialTheme.colorScheme.onBackground
         )

@@ -52,7 +52,7 @@ fun MainScreen(navHostController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedText(
-                strokeWidth = 30.0f
+                strokeWidth = 34.0f
             )
 
             FlowRow(

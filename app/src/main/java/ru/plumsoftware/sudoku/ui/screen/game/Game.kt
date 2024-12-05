@@ -53,6 +53,8 @@ import ru.plumsoftware.sudoku.ui.components.grid.Grid
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
 import ru.plumsoftware.sudoku.ui.model.LandScapePreview
 import ru.plumsoftware.sudoku.ui.model.PortraitPreview
+import ru.plumsoftware.sudoku.ui.model.Routing
+import ru.plumsoftware.sudoku.ui.screen.game.model.Effect
 import ru.plumsoftware.sudoku.ui.screen.game.model.Event
 import ru.plumsoftware.sudoku.ui.screen.global.model.GlobalState
 import ru.plumsoftware.sudoku.ui.theme.SudokuTheme
@@ -81,6 +83,21 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
             )
         )
         viewModel.onEvent(Event.StartTime)
+    }
+    LaunchedEffect(key1 = Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                Effect.Exit -> {
+
+                }
+                Effect.Pause -> {
+
+                }
+                Effect.Win -> {
+                    navHostController.navigate(route = Routing.Dialog.GAME_WIN)
+                }
+            }
+        }
     }
 
     val state = viewModel.state.collectAsState()
@@ -145,7 +162,7 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
 
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        painter = painterResource(R.drawable.time),
+                        painter = painterResource(id = R.drawable.time),
                         contentDescription = time,
                         tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
