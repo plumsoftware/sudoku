@@ -12,5 +12,5 @@ data class State(
     val selectedGrid: Int = -1,
     val errorsCount: Int = -1,
     val time: Long = 0L,
-    val isGameFinished: Boolean = false
+    val isGameFinished: Boolean = false,
 )

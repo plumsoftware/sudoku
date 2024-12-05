@@ -12,11 +12,11 @@ sealed class MainMenuButtonColorFamily (
     val shadowColor: Color = Color.Unspecified,
 ) {
     data object StartGame : MainMenuButtonColorFamily(
-        containerColor = redContainer,
-        onContainerColor = onRedContainer,
+        containerColor = blueContainer,
+        onContainerColor = onBlueContainer,
         leadingIconColor = Color.White,
-        leadingContainerColor = redLeadingContainer,
-        shadowColor = redShadow
+        leadingContainerColor = blueLeadingContainer,
+        shadowColor = blueShadow
     )
 
     data object Setting : MainMenuButtonColorFamily(
@@ -36,10 +36,10 @@ sealed class MainMenuButtonColorFamily (
     )
 
     data object Exit : MainMenuButtonColorFamily(
-        containerColor = exitContainer,
-        onContainerColor = onExitContainer,
+        containerColor = blueContainer,
+        onContainerColor = onBlueContainer,
         leadingIconColor = Color.White,
-        leadingContainerColor = exitLeadingContainer,
-        shadowColor = exitShadow
+        leadingContainerColor = blueLeadingContainer,
+        shadowColor = blueShadow
     )
 }

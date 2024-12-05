@@ -24,6 +24,9 @@
     <string name="win_title">Победа!</string>
     <string name="win_subtitle">Всё поле заполнено</string>
 
+    <string name="settings">Настройки</string>
+    <string name="theme">Тема</string>
+
     <string name="pause">Пауза</string>
     <string name="back_in_game">Вернуться в игру</string>
 </resources>

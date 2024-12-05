@@ -1,5 +1,7 @@
 package ru.plumsoftware.sudoku.ui.screen.game
 
+import android.app.Activity
+import android.view.LayoutInflater
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
@@ -38,16 +42,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.yandex.mobile.ads.banner.BannerAdEventListener
+import com.yandex.mobile.ads.banner.BannerAdSize
+import com.yandex.mobile.ads.banner.BannerAdView
+import com.yandex.mobile.ads.common.AdError
+import com.yandex.mobile.ads.common.AdRequest
+import com.yandex.mobile.ads.common.AdRequestConfiguration
+import com.yandex.mobile.ads.common.AdRequestError
+import com.yandex.mobile.ads.common.ImpressionData
+import com.yandex.mobile.ads.interstitial.InterstitialAd
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoadListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoader
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.plumsoftware.core.repository.sudoku.SudokuRepositoryImpl
+import ru.plumsoftware.sudoku.App
+import ru.plumsoftware.sudoku.BuildConfig
 import ru.plumsoftware.sudoku.R
 import ru.plumsoftware.sudoku.ui.components.grid.Grid
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
@@ -69,6 +89,44 @@ import java.util.Locale
 @Composable
 fun Game(navHostController: NavHostController, globalState: State<GlobalState>) {
 
+    val context = LocalContext.current
+    var mInterstitialAd: InterstitialAd? = null
+    val mInterstitialAdLoader = InterstitialAdLoader(context)
+
+    mInterstitialAdLoader.setAdLoadListener(object : InterstitialAdLoadListener {
+        override fun onAdLoaded(interstitialAd: InterstitialAd) {
+            mInterstitialAd = interstitialAd
+
+            mInterstitialAd!!.setAdEventListener(object : InterstitialAdEventListener {
+                override fun onAdShown() {
+                }
+
+                override fun onAdFailedToShow(adError: AdError) {
+                    navHostController.navigateUp()
+                }
+
+                override fun onAdDismissed() {
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd!!.setAdEventListener(null)
+                        mInterstitialAd = null
+                    }
+                    navHostController.navigateUp()
+                }
+
+                override fun onAdClicked() {
+                    navHostController.navigateUp()
+                }
+
+                override fun onAdImpression(impressionData: ImpressionData?) {}
+            })
+            mInterstitialAd!!.show(context as Activity)
+        }
+
+        override fun onAdFailedToLoad(error: AdRequestError) {
+            navHostController.navigateUp()
+        }
+    })
+
     val viewModel = viewModel {
         GameViewModel(
             sudokuRepository = SudokuRepositoryImpl()
@@ -87,12 +145,6 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
     LaunchedEffect(key1 = Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                Effect.Exit -> {
-
-                }
-                Effect.Pause -> {
-
-                }
                 Effect.Win -> {
                     navHostController.navigate(route = Routing.Dialog.GAME_WIN)
                 }
@@ -131,7 +183,9 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                     navigationIcon = {
                         IconButton(
                             onClick = {
-                                navHostController.navigateUp()
+                                val adRequestConfiguration: AdRequestConfiguration = AdRequestConfiguration.Builder(
+                                    BuildConfig.interstitialAd).build() //RuStore
+                                mInterstitialAdLoader.loadAd(adRequestConfiguration)
                             },
                             colors = IconButtonDefaults.iconButtonColors(
                                 containerColor = Color.Transparent,
@@ -182,7 +236,7 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                 .wrapContentHeight(),
             verticalArrangement = Arrangement.spacedBy(
                 space = Space.extraLarge,
-                alignment = Alignment.CenterVertically
+                alignment = Alignment.Bottom
             ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -261,6 +315,54 @@ fun Game(navHostController: NavHostController, globalState: State<GlobalState>) 
                         }
                 }
             }
+
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                factory = { context ->
+                    val inflate =
+                        LayoutInflater.from(context).inflate(R.layout.banner_ads, null)
+                    inflate
+                },
+                update = { view ->
+
+                    val bannerAd: BannerAdView? = view.findViewById(R.id.banner)
+                    val context = App.INSTANCE.applicationContext
+
+                    bannerAd!!.setAdSize(BannerAdSize.fixedSize(context, 300, 100))
+                    bannerAd.setAdUnitId(BuildConfig.bannerId)
+                    bannerAd.setBannerAdEventListener(object : BannerAdEventListener {
+                        override fun onAdLoaded() {
+
+                        }
+
+                        override fun onAdFailedToLoad(error: AdRequestError) {
+
+                        }
+
+                        override fun onAdClicked() {
+
+                        }
+
+                        override fun onLeftApplication() {
+
+                        }
+
+                        override fun onReturnedToApplication() {
+
+                        }
+
+                        override fun onImpression(impressionData: ImpressionData?) {
+
+                        }
+                    })
+                    bannerAd.loadAd(
+                        AdRequest.Builder()
+                            .build()
+                    )
+                }
+            )
         }
     }
 }

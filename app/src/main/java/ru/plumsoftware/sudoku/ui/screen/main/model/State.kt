@@ -7,7 +7,6 @@ import ru.plumsoftware.sudoku.ui.model.MainMenuModel
 data class State(
     val mainMenuModelList: List<MainMenuModel> = listOf(
         MainMenuModel.StartGame,
-        MainMenuModel.Settings,
         MainMenuModel.Exit
     )
 )

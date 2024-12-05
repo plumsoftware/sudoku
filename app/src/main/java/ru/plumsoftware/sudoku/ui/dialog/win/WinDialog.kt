@@ -1,6 +1,7 @@
 package ru.plumsoftware.sudoku.ui.dialog.win
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,11 +20,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.yandex.mobile.ads.common.AdError
+import com.yandex.mobile.ads.common.AdRequestConfiguration
+import com.yandex.mobile.ads.common.AdRequestError
+import com.yandex.mobile.ads.common.ImpressionData
+import com.yandex.mobile.ads.interstitial.InterstitialAd
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoadListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoader
+import ru.plumsoftware.sudoku.BuildConfig
 import ru.plumsoftware.sudoku.R
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
 import ru.plumsoftware.sudoku.ui.model.LandScapePreview
@@ -36,6 +47,49 @@ import ru.plumsoftware.sudoku.ui.theme.extensions.disabled
 
 @Composable
 fun WinDialog(navHostController: NavHostController) {
+
+    val context = LocalContext.current
+    var mInterstitialAd: InterstitialAd? = null
+    val mInterstitialAdLoader = InterstitialAdLoader(context)
+
+    mInterstitialAdLoader.setAdLoadListener(object : InterstitialAdLoadListener {
+        override fun onAdLoaded(interstitialAd: InterstitialAd) {
+            mInterstitialAd = interstitialAd
+
+            mInterstitialAd!!.setAdEventListener(object : InterstitialAdEventListener {
+                override fun onAdShown() {
+                }
+
+                override fun onAdFailedToShow(adError: AdError) {
+                    navHostController.navigate(route = Routing.MAIN)
+                    navHostController.clearBackStack(route = Routing.PLAY_GAME)
+                }
+
+                override fun onAdDismissed() {
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd!!.setAdEventListener(null)
+                        mInterstitialAd = null
+                    }
+                    navHostController.navigate(route = Routing.MAIN)
+                    navHostController.clearBackStack(route = Routing.PLAY_GAME)
+                }
+
+                override fun onAdClicked() {
+                    navHostController.navigate(route = Routing.MAIN)
+                    navHostController.clearBackStack(route = Routing.PLAY_GAME)
+                }
+
+                override fun onAdImpression(impressionData: ImpressionData?) {}
+            })
+            mInterstitialAd!!.show(context as Activity)
+        }
+
+        override fun onAdFailedToLoad(error: AdRequestError) {
+            navHostController.navigate(route = Routing.MAIN)
+            navHostController.clearBackStack(route = Routing.PLAY_GAME)
+        }
+    })
+
     Column(
         modifier = Modifier
             .clip(shape = MaterialTheme.shapes.small)
@@ -83,8 +137,9 @@ fun WinDialog(navHostController: NavHostController) {
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             onClick = {
-                navHostController.navigate(route = Routing.MAIN)
-                navHostController.clearBackStack(route = Routing.PLAY_GAME)
+                val adRequestConfiguration: AdRequestConfiguration = AdRequestConfiguration.Builder(
+                    BuildConfig.interstitialAd).build() //RuStore
+                mInterstitialAdLoader.loadAd(adRequestConfiguration)
             },
             contentPadding = PaddingValues(horizontal = Padding.large, vertical = Padding.small)
         ) {

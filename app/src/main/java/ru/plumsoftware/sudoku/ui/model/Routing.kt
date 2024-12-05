@@ -11,5 +11,6 @@ object Routing {
         const val EXIT = "exit"
         const val GAME_PAUSE = "game_pause"
         const val GAME_WIN = "game_win"
+        const val PROGRESS = "progress"
     }
 }

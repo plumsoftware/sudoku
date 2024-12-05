@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,6 +23,9 @@ android {
         }
     }
 
+    val localProperties = Properties()
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,6 +33,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "bannerId", localProperties["bannerId"].toString())
+            buildConfigField("String", "appOpenAd", localProperties["appOpenAd"].toString())
+            buildConfigField("String", "interstitialAd", localProperties["interstitialAd"].toString())
+        }
+        debug {
+            buildConfigField("String", "bannerId", localProperties["bannerId"].toString())
+            buildConfigField("String", "appOpenAd", localProperties["appOpenAd"].toString())
+            buildConfigField("String", "interstitialAd", localProperties["interstitialAd"].toString())
         }
     }
     compileOptions {
@@ -37,6 +52,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
