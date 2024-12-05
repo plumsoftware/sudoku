@@ -75,7 +75,6 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
     }
 
     Scaffold(
-        containerColor = Color.Transparent,
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -97,8 +96,7 @@ fun GameSettings(navHostController: NavHostController, onGlobalEvent: (GlobalEve
                             navHostController.navigateUp()
                         },
                         colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = MaterialTheme.colorScheme.onBackground
+                            containerColor = Color.Transparent
                         )
                     ) {
                         Icon(

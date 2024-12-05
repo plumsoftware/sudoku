@@ -74,9 +74,9 @@ internal val surfaceContainerDark = Color(0xFF1C2027)
 internal val surfaceContainerHighDark = Color(0xFF272A32)
 internal val surfaceContainerHighestDark = Color(0xFF32353D)
 
-internal val redContainer = Color(0xFFC83232)
+internal val redContainer = Color(0xFFDB0D0D)
 internal val onRedContainer = Color(0xFFFFFFFF)
-internal val redLeadingContainer = Color(0xFFAC2424)
+internal val redLeadingContainer = Color(0xFFAD1616)
 internal val redShadow = Color(0xFF8A3434)
 
 internal val blueContainer = Color(0xFF5858D4)

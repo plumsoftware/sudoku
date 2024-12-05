@@ -35,7 +35,8 @@ fun OutlinedText(
     fontWeight: FontWeight = FontWeight.Black,
     strokeWidth: Float = 10.0f,
     shadowColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    strokeColor: Color = MaterialTheme.colorScheme.primaryContainer
+    strokeColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    shadowYOffset: Float = Shadows.textShadow,
 ) {
     Box(modifier = modifier) {
         Text(
@@ -68,7 +69,7 @@ fun OutlinedText(
                 fontWeight = fontWeight,
                 shadow = Shadow(
                     color = shadowColor,
-                    offset = Offset(x = 0f, y = Shadows.textShadow),
+                    offset = Offset(x = 0f, y = shadowYOffset),
                     blurRadius = Blur.textShadowBlur
                 ),
             ),

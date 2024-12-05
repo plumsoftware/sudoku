@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -52,7 +53,8 @@ fun MainScreen(navHostController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedText(
-                strokeWidth = 34.0f
+                strokeWidth = 36.0f,
+                letterSpacing = 0.4.sp,
             )
 
             FlowRow(

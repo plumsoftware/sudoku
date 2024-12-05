@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -72,7 +73,7 @@ fun <R> Selectable(list: List<R>, @StringRes title: Int, onClick: (R) -> Unit) {
             fontSize = 32.sp,
             strokeWidth = 8.0f,
             strokeColor = MaterialTheme.colorScheme.onBackground,
-            shadowColor = MaterialTheme.colorScheme.onBackground
+            shadowColor = Color.Transparent
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(
