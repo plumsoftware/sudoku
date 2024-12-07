@@ -35,6 +35,7 @@ import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
 import com.yandex.mobile.ads.interstitial.InterstitialAdLoadListener
 import com.yandex.mobile.ads.interstitial.InterstitialAdLoader
 import ru.plumsoftware.sudoku.BuildConfig
+import ru.plumsoftware.sudoku.MainActivity
 import ru.plumsoftware.sudoku.R
 import ru.plumsoftware.sudoku.ui.model.DefaultPreview
 import ru.plumsoftware.sudoku.ui.model.LandScapePreview
@@ -46,7 +47,7 @@ import ru.plumsoftware.sudoku.ui.theme.extensions.Space
 import ru.plumsoftware.sudoku.ui.theme.extensions.disabled
 
 @Composable
-fun WinDialog(navHostController: NavHostController) {
+fun WinDialog(navHostController: NavHostController, activity: Activity) {
 
     val context = LocalContext.current
     var mInterstitialAd: InterstitialAd? = null
@@ -81,7 +82,7 @@ fun WinDialog(navHostController: NavHostController) {
 
                 override fun onAdImpression(impressionData: ImpressionData?) {}
             })
-            mInterstitialAd!!.show(context as Activity)
+            mInterstitialAd!!.show(activity)
         }
 
         override fun onAdFailedToLoad(error: AdRequestError) {
@@ -159,7 +160,7 @@ fun WinDialog(navHostController: NavHostController) {
 private fun WinDialogPreview() {
     SudokuTheme {
         Scaffold {
-            WinDialog(navHostController = rememberNavController())
+            WinDialog(navHostController = rememberNavController(), MainActivity())
         }
     }
 }

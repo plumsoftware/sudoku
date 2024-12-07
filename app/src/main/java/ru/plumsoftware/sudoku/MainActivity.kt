@@ -155,7 +155,7 @@ class MainActivity : ComponentActivity() {
                             PauseDialog(navHostController = navController)
                         }
                         dialog(route = Routing.Dialog.GAME_WIN) {
-                            WinDialog(navHostController = navController)
+                            WinDialog(navHostController = navController, activity = this@MainActivity)
                         }
                     }
                 }
